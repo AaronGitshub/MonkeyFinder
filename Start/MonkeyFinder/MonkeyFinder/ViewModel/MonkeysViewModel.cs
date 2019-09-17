@@ -17,18 +17,34 @@ namespace MonkeyFinder.ViewModel
        public MonkeysViewModel()
 {
         Monkeys = new ObservableCollection<Monkey>();
-            Title = "Monky Finder";
+            Title = "Monkey Finder";
 }
         async Task GetMonkeyAsync()
             {
             if (IsBusy)
                 return;
             try
-                {
-}               IsBusy = true;
-            var monkeys = await DataService.GetMonkeysAsync();
-            Monkeys.Clear();
-            foreach (var monkey in monkeys) Monkeys.Add(monkey);
+            {
+                IsBusy = true;
+                var monkeys = await DataService.GetMonkeysAsync();
+                Monkeys.Clear();
+                foreach (var monkey in monkeys)
+                    Monkeys.Add(monkey);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to get monkeys: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+         
+            
 }
     }
 }
+
+
+
