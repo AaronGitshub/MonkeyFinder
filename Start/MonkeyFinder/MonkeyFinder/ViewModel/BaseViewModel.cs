@@ -7,6 +7,12 @@ namespace MonkeyFinder.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public IDataService DataService { get; }
+public BaseViewModel()
+{
+    DataService = DependencyService.Get<IDataService>();
+}
+
         bool isBusy;
         string title;
         public string Title
@@ -29,11 +35,13 @@ namespace MonkeyFinder.ViewModel
                 if (isBusy == value)
 
                     return;
-
                 isBusy = value;
                 OnPropertyChanged();
+                //Also raise the IsNotBusy property changed
+                OnPropertyChanged(nameof(IsNotBusy));
             }
         }
+        public bool IsNotBusy => !IsBusy;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
