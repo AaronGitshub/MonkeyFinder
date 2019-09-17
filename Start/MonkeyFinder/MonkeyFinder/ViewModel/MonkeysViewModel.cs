@@ -7,29 +7,34 @@ using System.Linq;
 using MonkeyFinder.Model;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using MvvmHelpers;
+using System.Windows.Input;
 
 namespace MonkeyFinder.ViewModel
 {
     public class MonkeysViewModel : BaseViewModel
     {
-        public ObservableCollection<Monkey> Monkeys { get; }
+       public ObservableRangeCollection<Monkey> Monkeys { get; }
 
-       public MonkeysViewModel()
-{
-        Monkeys = new ObservableCollection<Monkey>();
+        public Command GetMonkeysCommand { get; }
+
+        public MonkeysViewModel()
+        {
+            Monkeys = new ObservableRangeCollection<Monkey>();
             Title = "Monkey Finder";
-}
-        async Task GetMonkeyAsync()
-            {
+            GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
+        }
+        async Task GetMonkeysAsync()
+        {
             if (IsBusy)
                 return;
             try
             {
                 IsBusy = true;
                 var monkeys = await DataService.GetMonkeysAsync();
-                Monkeys.Clear();
-                foreach (var monkey in monkeys)
-                    Monkeys.Add(monkey);
+                Monkeys.ReplaceRange(monkeys);
+
+                Title = $"Monkey Finder ({Monkeys.Count})";
             }
             catch (Exception ex)
             {
@@ -40,9 +45,7 @@ namespace MonkeyFinder.ViewModel
             {
                 IsBusy = false;
             }
-         
-            
-}
+        }
     }
 }
 
