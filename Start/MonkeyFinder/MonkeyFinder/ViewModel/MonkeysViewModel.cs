@@ -24,6 +24,7 @@ namespace MonkeyFinder.ViewModel
             Monkeys = new ObservableRangeCollection<Monkey>();
             Title = "Monkey Finder";
             GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
+            GetClosestCommand = new Command(async () => await GetClosestAsync());
         }
 
         async Task GetClosestAsync()
@@ -50,7 +51,8 @@ namespace MonkeyFinder.ViewModel
                     new Location(m.Latitude, m.Longitude), DistanceUnits.Miles))
                     .FirstOrDefault();
 
-                await Application.Current.MainPage.DisplayAlert("", first.Name + " " +
+                // pop up dialog
+                await Application.Current.MainPage.DisplayAlert("Closest", first.Name + "located in" +
                     first.Location, "OK");
 
             }
