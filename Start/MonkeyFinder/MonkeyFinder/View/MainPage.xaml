@@ -52,6 +52,12 @@
             </ListView.ItemTemplate>
         </ListView>
 
+                <Button Text="Search"
+                Command="{Binding GetMonkeysCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Grid.Row="1"
+                Grid.Column="0"/>
+
     </Grid>
 
 </ContentPage>
