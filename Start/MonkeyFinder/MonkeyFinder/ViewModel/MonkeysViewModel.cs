@@ -52,6 +52,9 @@ namespace MonkeyFinder.ViewModel
                     .FirstOrDefault();
 
                 // pop up dialog
+                if (first == null)
+                    return;
+
                 await Application.Current.MainPage.DisplayAlert("Closest", first.Name + "located in" +
                     first.Location, "OK");
 

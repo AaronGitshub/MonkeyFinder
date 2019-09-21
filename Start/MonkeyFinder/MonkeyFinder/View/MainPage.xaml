@@ -24,6 +24,7 @@
          <ListView ItemsSource="{Binding Monkeys}"
                   CachingStrategy="RecycleElement"
                   SeparatorVisibility="{OnPlatform iOS=None}"
+                  ItemSelected="ListView_ItemSelected"
                   HasUnevenRows="True"
                   Grid.ColumnSpan="2">
 
@@ -62,7 +63,7 @@
                 IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
                 Grid.Column="0"/>
-                        <Button Text="Find Closest"
+                <Button Text="Find Closest"
                 Command="{Binding GetClosestCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
