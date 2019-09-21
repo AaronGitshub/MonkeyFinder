@@ -39,9 +39,11 @@
                                 <ColumnDefinition Width="60"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="{Binding Image}"
+                <circle:CircleImage Source="{Binding Image}"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center"
+                                    BorderColor="{StaticResource PrimaryDark}"
+                                    BorderThickness="3"
                                     WidthRequest="60"
                                     HeightRequest="60"
                                     Aspect="AspectFill"/>
